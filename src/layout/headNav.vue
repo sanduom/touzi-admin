@@ -4,7 +4,7 @@
             <top-menu></top-menu>
             <div class="userinfo-right rflex">
                 <div class="notify-row">
-                    <ul class="top-menu">
+                    <!-- <ul class="top-menu">
                         <li class="li-badge">
                             <el-tooltip class="item" effect="dark" content="访问github" placement="top">
                                 <a :href='github' target="_blank">
@@ -42,14 +42,14 @@
                                 </el-popover>
                             </a>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <div class="userinfo">
                     <el-menu 
                        class="el-menu-demo" 
                        mode="horizontal" 
                        >
-                        <el-submenu index="1" popper-class="langItem">
+                        <!-- <el-submenu index="1" popper-class="langItem">
                             <template slot="title">
                                 <img :src="langLogo" class='langAvatar' alt="">
                             </template>
@@ -61,7 +61,7 @@
                                 <img :src="americaImg" class='langAvatar' alt="">
                                 <span class="intro">EngList</span>
                             </el-menu-item>
-                        </el-submenu>
+                        </el-submenu> -->
 
                         <el-submenu index="2"  popper-class="infoItem">
                             <template slot="title">
@@ -71,8 +71,8 @@
                                 </div>
                                 <img :src="avatar" class='avatar' alt="">
                             </template>
-                            <el-menu-item index="2-1" @click="setDialogInfo('info')">{{ $t('commons.infoShow') }}</el-menu-item>
-                            <el-menu-item index="2-2" @click="setDialogInfo('pass')">{{ $t('commons.infoModify') }}</el-menu-item>
+                            <!-- <el-menu-item index="2-1" @click="setDialogInfo('info')">{{ $t('commons.infoShow') }}</el-menu-item>
+                            <el-menu-item index="2-2" @click="setDialogInfo('pass')">{{ $t('commons.infoModify') }}</el-menu-item> -->
                             <el-menu-item index="2-3" @click="setDialogInfo('logout')">{{ $t('commons.quit') }}</el-menu-item>
                         </el-submenu>
                     </el-menu>

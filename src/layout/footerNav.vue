@@ -1,11 +1,9 @@
 <template>
-	 <div class='footer'>
+	<div class='footer'>
         <p class="intro rflex">
-            <span>{{ $t('commons.xiaoai') }}Admin</span>
-            <a :href='github' target="_blank">
-               <icon-svg icon-class="iconGithub" />
-            </a>
-            <span>wdlhao2013({{ $t('commons.wechatNumber') }})</span>
+            <span>{{ $t('commons.admin') }}</span>
+            <img class="logo" :src="logo" alt="小爱admin">
+            <span>力邦管理后台系统</span>
         </p>
         <p class="beian">鄂ICP备18001612号</p>
     </div>
@@ -14,11 +12,13 @@
 
 <script>
     import { github } from "@/utils/env";
+    import logoImg from "@/assets/img/logo.png";
 
 export default {
     name: "footerNav",
 	data(){
 		return {
+            logo:logoImg,
             github:github
 		}
 	},
@@ -43,6 +43,10 @@ export default {
             margin: 0 auto;
             justify-content: space-between;
             align-items: center;
+        }
+        .logo{
+            width: 40px;
+            height: 40px;
         }
     }
 </style>

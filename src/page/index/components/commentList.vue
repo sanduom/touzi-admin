@@ -31,10 +31,10 @@
     methods:{
         // 获取列表数据
         getSalesList(){
-            getSalesTableList({}).then(res => {
-                let list = res.data.list
-                this.commentData = list.slice(0,3);
-            })
+            // getSalesTableList({}).then(res => {
+            //     let list = res.data.list
+            //     this.commentData = list.slice(0,3);
+            // })
         },
     }
   }

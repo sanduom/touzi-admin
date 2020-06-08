@@ -170,22 +170,22 @@ export const loadStyle = url => {
     link.href = url
     const head = document.getElementsByTagName('head')[0]
     head.appendChild(link)
-  }
-  /**
-   * 设置浏览器头部标题
-   */
-  export const setTitle = (title) => {
-    title = title ? `${title}` : '小爱Admin'
+}
+/**
+ * 设置浏览器头部标题
+ */
+export const setTitle = (title) => {
+    title = title ? `${title}` : '力邦管理系统'
     window.document.title = title
-  }
+}
 
-  export const param2Obj = url => {
+export const param2Obj = url => {
     const search = url.split('?')[1]
     if (!search) {
-      return {}
+        return {}
     }
     return JSON.parse('{"' + decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}')
-  }
+}
 
   //是否为正整数
 export const isInteger = (s) => {
@@ -197,4 +197,4 @@ export const setContentHeight = (that,ele,height) => {
     that.$nextTick(() => {
         ele.style.height =   (document.body.clientHeight - height)+'px'
     })
-  }
+}

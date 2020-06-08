@@ -73,11 +73,11 @@
     methods:{
         // 获取列表数据
         getSalesList(){
-            getSalesTableList({}).then(res => {
-                console.log(res);
-                this.pageTotal = res.data.total
-                this.tableData = res.data.list
-            })
+            // getSalesTableList({}).then(res => {
+            //     console.log(res);
+            //     this.pageTotal = res.data.total
+            //     this.tableData = res.data.list
+            // })
         },
     }
   }

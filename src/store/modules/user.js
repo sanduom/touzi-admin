@@ -10,7 +10,7 @@ const user  = {
     avatar:'',
     token: getToken('Token'),
     roles: [],
-    browserHeaderTitle: mUtils.getStore('browserHeaderTitle') || '小爱Admin'
+    browserHeaderTitle: mUtils.getStore('browserHeaderTitle') || '力邦后台管理系统'
   },
   getters : {
     token: state => state.token,
@@ -36,13 +36,8 @@ const user  = {
   actions:{
       //登出
       LogOut({ commit, reqData }) {
-        return new Promise((resolve, reject) => {
-          logout(reqData).then(response => {
             commit('SET_ROLES', [])
             removeToken('Token')
-            resolve()
-          })
-        })
       },
       // 动态修改权限;本实例中,role和token是相同的;
       ChangeRoles({ commit }, role) {

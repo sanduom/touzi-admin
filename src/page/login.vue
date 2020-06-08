@@ -4,7 +4,7 @@
 	  		<section class="form_contianer">
 			     <div class='titleArea rflex'>
 					<img class="logo" :src="logo" alt="小爱admin">
-					<span class='title'>小爱<i>Admin</i></span>
+					<span class='title'>力邦<i>管理系统</i></span>
 				</div>
 		    	<el-form :model="loginForm" :rules="rules" ref="loginForm" class="loginForm">
 					<el-form-item prop="username" class="login-item">
@@ -14,6 +14,32 @@
 					<el-form-item prop="password" class="login-item"> 
 					    <span class="loginTips"><icon-svg icon-class="iconLock" /></span>
 						<el-input @keyup.enter.native ="submitForm('loginForm')" class="area" type="password" placeholder="密码" v-model="loginForm.password"></el-input>
+					</el-form-item>
+					<el-form-item>
+						<el-col :span="12" style="overflow:hidden">
+							<el-form-item>
+								<el-input
+									v-model='loginForm.code'
+									type="test"
+									auto-complete="off"
+									placeholder="请输入验证码"
+									style="width:100%"
+									@keyup.enter.native="handleLogin"
+								>
+								</el-input>
+							</el-form-item>
+						</el-col>
+						<el-col class="line" :span="1">&nbsp;</el-col>
+						<el-col :span="11">
+							<el-form-item>
+								<img 
+									style="width:85%;height:35px;float:right"
+									class="pointer"
+									:src="src" 
+									alt=""
+									@click="refreshCaptcha">
+							</el-form-item>
+						</el-col>
 					</el-form-item>
 					<el-form-item>
 				    	<el-button type="primary"  @click="submitForm('loginForm')" class="submit_btn">SIGN IN</el-button>
@@ -45,16 +71,20 @@
 
 <script>
 	import logoImg from "@/assets/img/logo.png";
-	import { login } from "@/api/user";
+	import { login,getLoginImgCode } from "@/api/user";
     import { setToken } from '@/utils/auth'
 
 	export default {
 	    data(){
 			return {
+				src:'',
 				logo:logoImg,
 				loginForm: {
-					username: 'admin',
-					password: '123456'
+					username: 'test',
+					password: 'test',
+					code:'',
+					key:'',
+					token:''
 				},
 				rules: {
 					username: [
@@ -67,9 +97,18 @@
 				}
 			}
 		},
+		created(){
+			this.refreshCaptcha();
+		},
 		mounted(){
 		},
 		methods: {
+			refreshCaptcha(){
+				getLoginImgCode().then(res =>{
+					this.src = res.data.img;
+					this.loginForm.key = res.data.key;
+				})
+			},
 			loginByWechat(){
 			},
 			showMessage(type,message){
@@ -81,10 +120,23 @@
 		    submitForm(loginForm) {
 				this.$refs[loginForm].validate((valid) => {
 					if (valid) {
-						let userinfo = this.loginForm;
+						let username = this.loginForm.username;
+						let password = this.loginForm.password;
+						let key = this.loginForm.key;
+						let imgCode = this.loginForm.code;
+						let userinfo = {
+							username: username,
+							password: password,
+							key: key,
+							// key:'',
+							imageCode: imgCode,
+							token: ''
+						};
+						// let userinfo = this.loginForm;
+						userinfo = this.$qs.stringify(userinfo);
 						login(userinfo).then(res => {
-							let userList = res.data.userList;
-							setToken("Token",userList.token)
+							// let userList = res.data.userList;
+							setToken("Token",res.data)
 							this.$router.push({ path: '/' })
 							this.$store.dispatch('initLeftMenu'); //设置左边菜单始终为展开状态
 						})
@@ -96,6 +148,7 @@
 </script>
 
 <style lang="less" scoped>
+
 	.login_page{
 		position: absolute;
 		width: 100%;

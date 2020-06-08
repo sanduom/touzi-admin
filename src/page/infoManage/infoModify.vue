@@ -2,301 +2,579 @@
     <div class="fillcontain" ref="fillcontain">
         <div class="info_container" ref="info_container">
             <el-row class="info_row row" :gutter="10">
-            <el-col :span="8">
-            <div class="area">
-                <p class="title">修改信息</p>
-                <el-form class="form"  :model="infoForm" :rules="infoRules" ref="infoForm" label-width="80px">
-                    <el-form-item label="姓名">
-                        <el-input v-model="infoForm.username"  size="mini" disabled placeholder="请输入姓名"></el-input>
-                    </el-form-item>
-                    <el-form-item label="昵称" prop="nickname">
-                        <el-input v-model="infoForm.nickname" size="mini" placeholder="请输入昵称"></el-input>
-                    </el-form-item>
-                    <el-form-item label="投资年限" prop="touziyear">
-                        <el-select v-model="infoForm.touziyear" size="mini" placeholder="请选择投资年限" >
-                            <el-option label="1年" value="1"></el-option>
-                            <el-option label="2年" value="2"></el-option>
-                            <el-option label="3年" value="3"></el-option>
-                            <el-option label="4年" value="4"></el-option>
-                            <el-option label="5年" value="5"></el-option>
-                            <el-option label="6年" value="6"></el-option>
-                            <el-option label="7年" value="7"></el-option>
-                            <el-option label="8年" value="8"></el-option>
-                            <el-option label="9年" value="9"></el-option>
-                            <el-option label="10年" value="10"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="绑定邮箱" prop="email">
-                        <el-input v-model="infoForm.email" size="mini" placeholder="请输入绑定邮箱"></el-input>
-                    </el-form-item>
-                    <el-form-item label="绑定手机" prop="telphone">
-                        <el-input v-model="infoForm.telphone" size="mini" placeholder="请输入绑定手机"></el-input>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button type="primary" @click="submitForm('infoForm')">提交</el-button>
-                        <el-button @click="resetForm('infoForm')">重置</el-button>
-                    </el-form-item>
-                </el-form>
-            </div>
-            </el-col>
-
-            <el-col :span="8">
-                <div class="area">
-                    <div class="pwdarea">
-                        <p class="title">修改密码</p>
-                            <el-form class="form"  :model="pwdForm" :rules="pwdRules" ref="pwdForm" label-width="100px">
-                            <el-form-item label="原密码" prop="password">
-                                <el-input type="password" v-model="pwdForm.password" auto-complete="off" size="mini" placeholder="请输入原密码"></el-input>
+                <el-col :span="8">
+                    <div class="area">
+                        <p class="title">入库物品种类登记</p>
+                        <el-form
+                            class="form"
+                            :model="infoForm"
+                            :rules="infoRules"
+                            ref="infoForm"
+                            label-width="80px"
+                        >
+                            <el-form-item label="物品名称" prop="goodsName">
+                                <el-input
+                                    v-model="infoForm.goodsName"
+                                    size="mini"
+                                    placeholder="请输入物品名称"
+                                ></el-input>
                             </el-form-item>
-                            <el-form-item label="新密码" prop="newpassword">
-                                <el-input type="password" v-model="pwdForm.newpassword" auto-complete="off" size="mini" placeholder="请输入新密码"></el-input>
+                            <el-form-item label="供应商" prop="supplier">
+                                <el-input
+                                    v-model="infoForm.supplier"
+                                    size="mini"
+                                    placeholder="请输入供应商"
+                                ></el-input>
                             </el-form-item>
-                            <el-form-item label="确认新密码" prop="surepassword">
-                                <el-input type="password" v-model="pwdForm.surepassword" auto-complete="off" size="mini" placeholder="请输入确认新密码"></el-input>
+                            <el-form-item label="物品类别" prop="goodsType">
+                                <el-select
+                                    v-model="infoForm.goodsType"
+                                    size="mini"
+                                    placeholder="请选择物品类别"
+                                >
+                                    <el-option label="零件" value="1"></el-option>
+                                    <el-option label="半成品" value="2"></el-option>
+                                    <el-option label="成品" value="3"></el-option>
+                                    <el-option label="其他" value="4"></el-option>
+                                </el-select>
                             </el-form-item>
+                            <el-form-item label="物品信息" prop="goodsInfo">
+                                <el-input
+                                    v-model="infoForm.goodsInfo"
+                                    size="mini"
+                                    placeholder="请输入物品信息"
+                                ></el-input>
+                            </el-form-item>
+                            <el-form-item label="物品编号" prop="goodsNo">
+                                <el-input
+                                    v-model="infoForm.goodsNo"
+                                    size="mini"
+                                    placeholder="请输入物品编号"
+                                ></el-input>
+                            </el-form-item>
+                            <!-- <el-form-item label="物品图片" prop="productionImg">
+                        <el-input v-model="infoForm.productionImg" size="mini" type="file" ></el-input>
+                            </el-form-item>-->
                             <el-form-item>
-                                <el-button type="primary" @click="submitForm('pwdForm')">提交</el-button>
-                                <el-button @click="resetForm('pwdForm')">重置</el-button>
-                            </el-form-item>
-                            </el-form>
-                    </div>
-                </div>
-            </el-col>
-
-            <el-col :span="8">
-                <div class="area">
-                    <div class="phonearea">
-                            <p class="title">手机服务</p>
-                            <el-form class="form"  :model="phoneForm" :rules="phoneRules" ref="phoneForm" label-width="110px">
-                                <el-form-item label="当前绑定手机" prop="phone">
-                                    <el-input v-model="phoneForm.phone" size="mini" placeholder=""></el-input>
-                                </el-form-item>
-                                <el-form-item label="基础短信服务" prop="baseType">
-                                    <el-checkbox-group v-model="phoneForm.baseType" class="phoneGroup">
-                                        <el-checkbox label="网站密码找回"   name="baseType"></el-checkbox>
-                                        <el-checkbox label="提现申请短信验证"  name="baseType"></el-checkbox>
-                                        <el-checkbox label="提现申请提醒"   name="baseType"></el-checkbox>
-                                    </el-checkbox-group>
-                                </el-form-item>
-                                <el-form-item label="可选短信服务" prop="changeType">
-                                    <el-checkbox-group v-model="phoneForm.changeType" class="phoneGroup">
-                                        <el-checkbox label="投标通知" name="changeType"></el-checkbox>
-                                        <el-checkbox label="满标/流标/撤销通知" name="changeType"></el-checkbox>
-                                        <el-checkbox label="回款通知" name="changeType"></el-checkbox>
-                                        <el-checkbox label="本息保障通知" name="changeType"></el-checkbox>
-                                        <el-checkbox label="优质标提醒通知" name="changeType"></el-checkbox>
-                                    </el-checkbox-group>
-                                </el-form-item>
-                        
-                            <el-form-item>
-                                <el-button type="primary" @click="submitForm('phoneForm')">提交</el-button>
-                                <el-button @click="resetForm('phoneForm')">重置</el-button>
+                                <el-button type="primary" @click="submitForm('infoForm')">提交</el-button>
+                                <el-button @click="resetForm('infoForm')">重置</el-button>
                             </el-form-item>
                         </el-form>
                     </div>
-                </div>
-            </el-col>
+                </el-col>
+
+                <el-col :span="8">
+                    <div class="area">
+                        <div class="pwdarea">
+                            <p class="title">入库物品数量登记</p>
+                            <el-form
+                                class="form"
+                                :model="pwdForm"
+                                :rules="pwdRules"
+                                ref="pwdForm"
+                                label-width="100px"
+                            >
+                                <el-form-item label="物品名称" prop="goodsName">
+                                    <!-- <el-input v-model="pwdForm.goodsName"  size="mini" placeholder="请输入物品名称"></el-input> -->
+                                    <el-select
+                                        v-model="pwdForm.goodsName"
+                                        size="mini"
+                                        placeholder="请输入物品名称"
+                                    >
+                                        <el-option
+                                            v-for="(item,index) in articleIdList"
+                                            :key="index"
+                                            :label="item.value"
+                                            :value="item.key"
+                                        ></el-option>
+                                    </el-select>
+                                </el-form-item>
+                                <el-form-item label="入库数量" prop="goodsQuantity">
+                                    <el-input
+                                        v-model="pwdForm.goodsQuantity"
+                                        size="mini"
+                                        placeholder="请输入物品入库数量"
+                                    ></el-input>
+                                </el-form-item>
+                                <el-form-item label="经办人" prop="operator">
+                                    <el-input
+                                        v-model="pwdForm.operator"
+                                        size="mini"
+                                        placeholder="请输入经办人"
+                                    ></el-input>
+                                </el-form-item>
+                                <el-form-item label="入库位置" prop="enterPosition">
+                                    <el-select
+                                        v-model="pwdForm.enterPosition"
+                                        size="mini"
+                                        placeholder="请选择入库位置"
+                                    >
+                                        <el-option label="楼上货架" value="1"></el-option>
+                                        <el-option label="楼下货架" value="2"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                                <el-form-item label="入库时间" prop="enterTime">
+                                    <el-date-picker
+                                        v-model="pwdForm.enterTime"
+                                        type="date"
+                                        placeholder="请选择入库日期"
+                                    ></el-date-picker>
+                                </el-form-item>
+                                <el-form-item label="单价" prop="unitPrice">
+                                    <el-input
+                                        v-model="pwdForm.unitPrice"
+                                        size="mini"
+                                        placeholder="请输入单价"
+                                    ></el-input>
+                                </el-form-item>
+                                <el-form-item label="总价" prop="totalPrice">
+                                    <el-input
+                                        v-model="pwdForm.totalPrice"
+                                        size="mini"
+                                        placeholder="请输入总价"
+                                    ></el-input>
+                                </el-form-item>
+                                <el-form-item label="备注" prop="remarks">
+                                    <el-input
+                                        type="textarea"
+                                        v-model="pwdForm.remarks"
+                                        resize="none"
+                                        size="mini"
+                                        placeholder="请输入备注"
+                                    ></el-input>
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-button type="primary" @click="submitForm('pwdForm')">提交</el-button>
+                                    <el-button @click="resetForm('pwdForm')">重置</el-button>
+                                </el-form-item>
+                            </el-form>
+                        </div>
+                    </div>
+                </el-col>
+
+                <el-col :span="8">
+                    <div class="area">
+                        <div class="phonearea">
+                            <p class="title">物品出库数量登记</p>
+                            <el-form
+                                class="form"
+                                :model="phoneForm"
+                                :rules="phoneRules"
+                                ref="phoneForm"
+                                label-width="110px"
+                            >
+                                <el-form-item label="物品名称" prop="goodsName">
+                                    <!-- <el-input v-model="phoneForm.goodsName"  size="mini" placeholder="请输入物品名称"></el-input> -->
+                                    <el-select
+                                        v-model="phoneForm.goodsName"
+                                        size="mini"
+                                        placeholder="请输入物品名称"
+                                    >
+                                        <el-option
+                                            v-for="(item,index) in articleIdList"
+                                            :key="index"
+                                            :label="item.value"
+                                            :value="item.key"
+                                        ></el-option>
+                                    </el-select>
+                                </el-form-item>
+                                <el-form-item label="出库数量" prop="goodsQuantity">
+                                    <el-input
+                                        v-model="phoneForm.goodsQuantity"
+                                        size="mini"
+                                        placeholder="请输入物品入库数量"
+                                    ></el-input>
+                                </el-form-item>
+                                <el-form-item label="经办人" prop="operator">
+                                    <el-input
+                                        v-model="phoneForm.operator"
+                                        size="mini"
+                                        placeholder="请输入经办人"
+                                    ></el-input>
+                                </el-form-item>
+                                <el-form-item label="出库位置" prop="outPosition">
+                                    <el-select
+                                        v-model="phoneForm.outPosition"
+                                        size="mini"
+                                        placeholder="请选择入库位置"
+                                    >
+                                        <el-option label="楼上货架" value="1"></el-option>
+                                        <el-option label="楼下货架" value="2"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                                <el-form-item label="出库用途" prop="outUsage">
+                                    <el-select
+                                        v-model="phoneForm.outUsage"
+                                        size="mini"
+                                        placeholder="请选择出库用途"
+                                    >
+                                        <el-option label="自用" value="1"></el-option>
+                                        <el-option label="出售" value="2"></el-option>
+                                        <el-option label="调货" value="3"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                                <el-form-item label="物品类别" prop="goodsKind">
+                                    <el-select
+                                        v-model="phoneForm.goodsKind"
+                                        size="mini"
+                                        placeholder="请选择物品类别"
+                                    >
+                                        <el-option label="零件" value="1"></el-option>
+                                        <el-option label="半成品" value="2"></el-option>
+                                        <el-option label="成品" value="3"></el-option>
+                                        <el-option label="其他" value="4"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                                <el-form-item label="出库时间" prop="outTime">
+                                    <el-date-picker
+                                        v-model="phoneForm.outTime"
+                                        type="date"
+                                        placeholder="请选择出库日期"
+                                    ></el-date-picker>
+                                </el-form-item>
+                                <el-form-item label="单价" prop="unitPrice">
+                                    <el-input
+                                        v-model="phoneForm.unitPrice"
+                                        size="mini"
+                                        placeholder="请输入单价"
+                                    ></el-input>
+                                </el-form-item>
+                                <el-form-item label="总价" prop="totalPrice">
+                                    <el-input
+                                        v-model="phoneForm.totalPrice"
+                                        size="mini"
+                                        placeholder="请输入总价"
+                                    ></el-input>
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-button type="primary" @click="submitForm('phoneForm')">提交</el-button>
+                                    <el-button @click="resetForm('phoneForm')">重置</el-button>
+                                </el-form-item>
+                            </el-form>
+                        </div>
+                    </div>
+                </el-col>
             </el-row>
         </div>
     </div>
 </template>
 
 <script>
-   import * as mutils from '@/utils/mUtils'
+import * as mutils from "@/utils/mUtils";
+import { Message, MessageBox } from "element-ui";
+import {
+    inputArticle,
+    inputEnterArticle,
+    inputOutArticle,
+    articleOfSelect
+} from "@/api/user";
 
-    export default {
-        data(){
-             // 附带callback(),是在明确通过验证的情况下去掉输入框上的loading
-            let validateEmail = (rule, value, callback) => {
-                if(value == ''){
-                    callback(new Error('请输入邮箱~'));
-                    return;
-                }
-                let emailRegex = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-                if (!emailRegex.test(value)) {
-                    callback(new Error('邮箱格式不正确！'))
-                } else {
-                    callback();
-                }
-            };
-            let validatePhone = (rule, value, callback) => {
-                if(value == ''){
-                    callback(new Error('请输入手机号码~'));
-                }{
-                    let phoneRegex = /^1[34578]\d{9}$/;
-                    if (!phoneRegex.test(value)) {
-                        callback(new Error('手机号码格式不正确！'))
-                    } else {
-                        callback();
+export default {
+    data() {
+        return {
+            articleIdList: [],
+            infoForm: {
+                goodsName: "",
+                supplier: "",
+                goodsType: "",
+                goodsInfo: "",
+                goodsNo: "",
+                productionImg: ""
+            },
+            pwdForm: {
+                goodsName: "",
+                goodsQuantity: "",
+                operator: "",
+                enterPosition: "",
+                enterTime: "",
+                unitPrice: "",
+                totalPrice: "",
+                remarks: ""
+            },
+            phoneForm: {
+                goodsName: "",
+                goodsQuantity: "",
+                operator: "",
+                outPosition: "",
+                outTime: "",
+                outUsage: "",
+                goodsKind: "",
+                unitPrice: "",
+                totalPrice: ""
+            },
+            infoRules: {
+                goodsName: [
+                    {
+                        required: true,
+                        message: "请输入物品名称",
+                        trigger: "blur"
                     }
-                }
-            };
-            // validateField:对部分表单字段进行校验的方法
-            let validateNewpassword = (rule, value, callback) => {
-                if (value === '') {
-                    callback(new Error('请输入新密码'));
-                } else {
-                    if (this.pwdForm.surepassword !== '') {
-                        this.$refs.pwdForm.validateField('surepassword');
+                ],
+                supplier: [
+                    { required: true, message: "请输入供应商", trigger: "blur" }
+                    // { min: 2, max: 8, message: '长度在 2 到 8 个字符', trigger: 'blur' }
+                ],
+                goodsType: [
+                    {
+                        required: true,
+                        message: "请选择物品类别",
+                        trigger: "change"
                     }
-                    callback();
-                }
-            };
-            let validateSurepassword = (rule, value, callback) => {
-                if (value === '') {
-                    callback(new Error('请输入确认密码'));
-                } else if (value !== this.pwdForm.newpassword) {
-                    callback(new Error('两次输入密码不一致!'));
-                } else {
-                   callback();
-                }
-            };
-            return {
-               infoForm:{
-                   username:'',
-                   nickname:'',
-                   touziyear:'',
-                   email:'',
-                   telphone:''
-               },
-               pwdForm:{
-                   password:'',
-                   newpassword:'',
-                   surepassword:''
-               },
-               phoneForm:{
-                   phone:'',
-                   baseType:[],
-                   changeType:[]
-               },
-               infoRules: {
-                    nickname: [
-                        { required: true, message: '请输入昵称', trigger: 'blur' },
-                        { min: 2, max: 8, message: '长度在 2 到 8 个字符', trigger: 'blur' }
-                    ],
-                    touziyear: [
-                        { required: true, message: '请选择投资年限', trigger: 'change' }
-                    ],
-                    email: [
-                        {required: true,validator: validateEmail,trigger: 'blur'}
-                    ],
-                    telphone: [
-                        {required: true,validator: validatePhone, trigger: 'blur' },
-                    ],
-               },
-               pwdRules: {
-                    password: [
-                        { required: true, message: '请输入原密码', trigger: 'blur' },
-                    ],
-                    newpassword: [
-                        { required: true, validator:validateNewpassword, trigger: 'blur' },
-                    ],
-                    surepassword: [
-                        { required: true, validator:validateSurepassword, trigger: 'blur' },
-                    ],
-               },
-               phoneRules:{
-                   phone: [
-                        {required: true,validator: validatePhone, trigger: 'blur' },
-                   ],
-                   baseType: [
-                        { type: 'array', required: true, message: '请至少选择一个基础短信服务', trigger: 'change' }
-                   ],
-                   changeType: [
-                        { type: 'array', required: true, message: '请至少选择一个可选短信服务', trigger: 'change' }
-                   ],
-               },
-             
-            };
-           
-
+                ],
+                goodsInfo: [
+                    {
+                        required: true,
+                        message: "请选择物品信息",
+                        trigger: "blur"
+                    }
+                ],
+                goodsNo: [
+                    {
+                        required: true,
+                        message: "请输入物品编号",
+                        trigger: "blur"
+                    }
+                ]
+            },
+            pwdRules: {
+                goodsName: [
+                    {
+                        required: true,
+                        message: "请输入物品名称",
+                        trigger: "blur"
+                    }
+                ],
+                goodsQuantity: [
+                    {
+                        required: true,
+                        message: "请输入物品数量",
+                        trigger: "blur"
+                    }
+                ],
+                operator: [
+                    { required: true, message: "请输入经办人", trigger: "blur" }
+                ],
+                enterPosition: [
+                    {
+                        required: true,
+                        message: "请选择入库位置",
+                        trigger: "blur"
+                    }
+                ],
+                enterTime: [
+                    {
+                        required: true,
+                        message: "请选择入库时间",
+                        trigger: "blur"
+                    }
+                ],
+                goodsName: [
+                    {
+                        required: true,
+                        message: "请输入物品名称",
+                        trigger: "blur"
+                    }
+                ]
+            },
+            phoneRules: {
+                goodsName: [
+                    {
+                        required: true,
+                        message: "请输入物品名称",
+                        trigger: "blur"
+                    }
+                ],
+                goodsQuantity: [
+                    {
+                        required: true,
+                        message: "请输入物品数量",
+                        trigger: "blur"
+                    }
+                ],
+                operator: [
+                    { required: true, message: "请输入经办人", trigger: "blur" }
+                ],
+                outPosition: [
+                    {
+                        required: true,
+                        message: "请选择出库位置",
+                        trigger: "blur"
+                    }
+                ],
+                outTime: [
+                    {
+                        required: true,
+                        message: "请选择出库时间",
+                        trigger: "blur"
+                    }
+                ],
+                outUsage: [
+                    {
+                        required: true,
+                        message: "请选择出库用途",
+                        trigger: "blur"
+                    }
+                ],
+                goodsKind: [
+                    {
+                        required: true,
+                        message: "请输入物品类别",
+                        trigger: "blur"
+                    }
+                ]
+            }
+        };
+    },
+    created() {
+        articleOfSelect().then(res => {
+            this.articleIdList = res.data;
+        });
+    },
+    mounted() {
+        // mutils.setContentHeight(this,this.$refs.fillcontain,170);
+    },
+    methods: {
+        showMessage(type, message) {
+            this.$message({
+                type: type,
+                message: message
+            });
         },
-        created(){
-           
+        showUsername() {
+            let userinfo = mutils.getStore("userinfo");
+            this.infoForm.username = userinfo.username;
         },
-      	mounted() {
-            // mutils.setContentHeight(this,this.$refs.fillcontain,170);
-	    },
-        methods: {
-            showMessage(type,message){
-                this.$message({
-                    type: type,
-                    message: message
-                });
-            },
-            showUsername(){
-                let userinfo = mutils.getStore('userinfo');
-                this.infoForm.username = userinfo.username;
-            },
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        if(formName == 'pwdForm'){
-                            this.showMessage('success','修改密码成功~');
-                        }else if(formName == 'infoForm'){ // 判断手机服务是否为空
-                            this.phoneForm.phone = this.infoForm.telphone;
-                            for(let key in this.phoneForm){
-                                if(this.phoneForm[key] == ''){
-                                    this.showMessage('warning','请您选择手机服务~');
-                                    return;
-                                }
+        submitForm(formName) {
+            this.$refs[formName].validate(valid => {
+                if (valid) {
+                    if (formName == "pwdForm") {
+                        let data = {
+                            articleId: "",
+                            articleCount: "",
+                            articleType: "",
+                            position: "",
+                            remark: "",
+                            price: "",
+                            totalPrice: "",
+                            createUser: "",
+                            createTime: ""
+                        };
+                        data.articleId = this.pwdForm.goodsName + "";
+                        data.articleCount = this.pwdForm.goodsQuantity;
+                        data.createUser = this.pwdForm.operator;
+                        data.position = this.pwdForm.enterPosition;
+                        data.createTime = this.pwdForm.enterTime;
+                        data.price = this.pwdForm.unitPrice;
+                        data.totalPrice = this.pwdForm.totalPrice;
+                        data.remark = this.pwdForm.remarks;
+                        data.articleType = "1";
+                        inputEnterArticle(data).then(res => {
+                            if (res.code == "0000") {
+                                this.$refs[formName].resetFields();
+                                this.$message({
+                                    type: "success",
+                                    message: "操作成功，商品数量录入完成"
+                                });
                             }
-                        }else if(formName == 'phoneForm'){// 判断修改信息是否为空
-                            this.infoForm.telphone = this.phoneForm.phone;
-                            for(let key in this.infoForm){
-                                if(this.infoForm[key] == ''){
-                                    this.showMessage('warning','请您修改相关信息~');
-                                    return;
-                                }
+                        });
+                        return;
+                    } else if (formName == "infoForm") {
+                        let data = {
+                            articleName: "",
+                            supplier: "",
+                            articleType: "",
+                            articleInfo: "",
+                            articleNo: ""
+                        };
+                        data.articleName = this.infoForm.goodsName;
+                        data.supplier = this.infoForm.supplier;
+                        data.articleType = this.infoForm.goodsType;
+                        data.articleInfo = this.infoForm.goodsInfo;
+                        data.articleNo = this.infoForm.goodsNo;
+                        inputArticle(data).then(res => {
+                            if (res.code == "0000") {
+                                this.$refs[formName].resetFields();
+                                this.$message({
+                                    type: "success",
+                                    message: "操作成功，商品数量录入完成"
+                                });
                             }
-                        }
-                        //保存修改的相关信息
-						let userinfo = this.infoForm;
-                        let phoneinfo = this.phoneForm;
-						let userData = Object.assign(userinfo, phoneinfo);
-                    } else {
-                        console.log('error submit!!');
-                        return false;
+                        });
+                        return;
+                    } else if (formName == "phoneForm") {
+                        let data = {
+                            articleId: "",
+                            articleCount: "",
+                            articleType: "",
+                            position: "",
+                            outType: "",
+                            price: "",
+                            totalPrice: "",
+                            createUser: "",
+                            createTime: ""
+                        };
+                        data.articleId = this.phoneForm.goodsName;
+                        data.articleCount = this.phoneForm.goodsQuantity;
+                        data.articleType = this.phoneForm.goodsKind;
+                        data.position = this.phoneForm.outPosition;
+                        data.outType = this.phoneForm.outUsage;
+                        data.price = this.phoneForm.unitPrice;
+                        data.totalPrice = this.phoneForm.totalPrice;
+                        data.createUser = this.phoneForm.operator;
+                        data.createTime = this.phoneForm.outTime;
+                        inputOutArticle(data).then(res => {
+                            if (res.code == "0000") {
+                                this.$refs[formName].resetFields();
+                                this.$message({
+                                    type: "success",
+                                    message: "操作成功，商品数量录入完成"
+                                });
+                            }
+                        });
                     }
-                });
-            },
-            resetForm(formName) {
-                this.$refs[formName].resetFields();
-            },
+                } else {
+                    console.log("error submit!!");
+                    return false;
+                }
+            });
+        },
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
         }
     }
+};
 </script>
 
 <style lang="less" scoped>
-    .info_container{
-       padding: 20px;
-       background: #fff;
-       box-sizing: border-box;
-       overflow: auto;
-    }
-     .title{
-        text-align:center;
-        width:100%;
-        height:30px;
-        line-height:30px;
-        cursor: pointer;
-        background-color: #3bc5ff;
-        border:1px solid #3bc5ff;
-        color: white;
-        display: block;
-    }
-   .info_row{
-        .area{
-           border:1px solid #dfdfdf;
-           height:100%;
-           font-size:14px;
-           padding:10px;
-           .form{
-               width:90%;
-               margin-top:20px;
-           }
+.info_container {
+    padding: 20px;
+    background: #fff;
+    box-sizing: border-box;
+    overflow: auto;
+}
+.title {
+    text-align: center;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+    background-color: #3bc5ff;
+    border: 1px solid #3bc5ff;
+    color: white;
+    display: block;
+}
+.info_row {
+    .area {
+        border: 1px solid #dfdfdf;
+        height: 100%;
+        font-size: 14px;
+        padding: 10px;
+        .form {
+            width: 90%;
+            margin-top: 20px;
         }
-   }
+    }
+}
 </style>
 
 
