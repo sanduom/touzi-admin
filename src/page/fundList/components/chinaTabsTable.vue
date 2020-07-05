@@ -20,7 +20,7 @@
           <el-tag type="info" close-transition>{{scope.row.payType}}</el-tag>
         </template>-->
       </el-table-column>
-      <el-table-column prop="createTime" label="日期" align="center" width="120"></el-table-column>
+      <el-table-column prop="createTime" label="日期" align="center" width="160"></el-table-column>
       <el-table-column prop="articleType" label="分类" align="center" width="120"></el-table-column>
 
       <el-table-column prop="remark" label="备注" align="left">

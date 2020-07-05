@@ -17,15 +17,7 @@ Vue.prototype.playAudio = () => {
   let buttonAudio = document.getElementById("eventAudio");
   buttonAudio.setAttribute("src", audio);
   console.log(buttonAudio);
-  // let p = true;
-  // alert(p);
-  // if (p) {
   buttonAudio.play();
-  //   p = false;
-  // } else {
-  //   buttonAudio.pause();
-  //   p = true;
-  // }
 };
 Vue.prototype.pauseAudio = () => {
   let buttonAudio = document.getElementById("eventAudio");

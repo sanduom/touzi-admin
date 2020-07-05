@@ -4,7 +4,7 @@
       <div style="display:flex;height:80px">
         <div style="float:left;width:30%;margin-top:20px">
           商品名称:
-          <el-select v-model="productName" size="mini" placeholder="请选择物品名称">
+          <el-select v-model="productName" clearable size="mini" placeholder="请选择物品名称">
             <el-option
               v-for="(item,index) in articleList"
               :key="index"
@@ -24,15 +24,17 @@
               :value="item.value"
             ></el-option>
           </el-select>-->
-          <el-input v-model="createUser" placeholder="请输入经办人" style="width:50%"></el-input>
+          <el-input v-model="createUser" clearable placeholder="请输入经办人" style="width:50%"></el-input>
         </div>
         <div style="float:left;width:30%;margin-top:20px">
           日期
           <el-date-picker
+            format="yyyy-MM-dd"
             value-format="yyyy-MM-dd"
             v-model="QuerydDate"
             type="date"
             placeholder="选择日期"
+            @change="changeDate"
           ></el-date-picker>
         </div>
         <div style="float:left;width:10%;margin-top:20px">
@@ -116,6 +118,13 @@ export default {
     this.toggleTabs("eastChina");
   },
   methods: {
+    changeDate() {
+      if (this.QuerydDate) {
+        return;
+      } else {
+        this.QuerydDate = "";
+      }
+    },
     handleCurrentChange(page) {
       let data = {
         articleName: this.productName,
@@ -135,7 +144,7 @@ export default {
       let data = {
         articleId: this.productName,
         createUser: this.createUser,
-        date: this.QuerydDate,
+        createDate: this.QuerydDate,
         pageNum: "1",
         pageSize: "10"
       };

@@ -7,7 +7,9 @@ const resolve = (dir) => {
   return path.join(__dirname, dir);
 };
 
+// eslint-disable-next-line no-unused-vars
 const env = process.env.NODE_ENV;
+// eslint-disable-next-line no-unused-vars
 let target = process.env.VUE_APP_URL; // development和production环境是不同的
 
 const cdn = {
@@ -49,7 +51,7 @@ module.exports = {
     open: true,
     host: "0.0.0.0",
     port: 8808,
-    proxy: "http://49.233.196.53:8080/store",
+    proxy: "http://49.233.196.53:8080/stroe",
     // 由于本项目数据通过easy-mock和mockjs模拟，不存在跨域问题，无需配置代理;
     // proxy: {
     //   '/api': {

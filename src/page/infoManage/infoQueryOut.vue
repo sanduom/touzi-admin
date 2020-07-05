@@ -4,7 +4,7 @@
       <div style="display:flex;height:80px">
         <div style="float:left;width:30%;margin-top:20px">
           商品名称:
-          <el-select v-model="productName" size="mini" placeholder="请选择物品名称">
+          <el-select v-model="productName" clearable size="mini" placeholder="请选择物品名称">
             <el-option
               v-for="(item,index) in articleList"
               :key="index"
@@ -24,7 +24,7 @@
               :value="item.value"
             ></el-option>
           </el-select>-->
-          <el-input v-model="createUser" placeholder="请输入经办人" style="width:50%"></el-input>
+          <el-input v-model="createUser" clearable placeholder="请输入经办人" style="width:50%"></el-input>
         </div>
         <div style="float:left;width:30%;margin-top:20px">
           日期
@@ -99,6 +99,9 @@ export default {
       this.articleList = res.data;
     });
     let data = {
+      // articleId: this.productName,
+      // createUser: this.createUser,
+      // createDate: this.QuerydDate,
       pageNum: "1",
       pageSize: "10"
     };
@@ -135,7 +138,7 @@ export default {
       let data = {
         articleId: this.productName,
         createUser: this.createUser,
-        date: this.QuerydDate,
+        createDate: this.QuerydDate,
         pageNum: "1",
         pageSize: "10"
       };

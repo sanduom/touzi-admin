@@ -10,7 +10,7 @@
           <span style="color:#CC0033">{{ scope.row.orderMoney }}</span>
         </template>-->
       </el-table-column>
-      <el-table-column prop="createTime" label="日期" align="center" width="120" sortable>
+      <el-table-column prop="createTime" label="日期" align="center" width="160" sortable>
         <!-- <template slot-scope="scope">
           <span style="color:#00d053;">+{{ scope.row.incomeMoney }}</span>
         </template>-->
