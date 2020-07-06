@@ -96,6 +96,35 @@ export const asyncRouterMap = [
         children: filterTopRouterMap("infoModify"),
       },
       {
+        path: "customers",
+        name: "customers",
+        meta: {
+          title: "供应商和客户信息登记",
+          routerType: "leftmenu",
+        },
+        component: () => import("@/page/CustomersAndSuppliers/Customers.vue"),
+      },
+      {
+        path: "customersQuery",
+        name: "customersQuery",
+        meta: {
+          title: "客户信息",
+          routerType: "leftmenu",
+        },
+        component: () =>
+          import("@/page/CustomersAndSuppliers/CustomersQuery.vue"),
+      },
+      {
+        path: "SuppliersQuery",
+        name: "SuppliersQuery",
+        meta: {
+          title: "供应商信息",
+          routerType: "leftmenu",
+        },
+        component: () =>
+          import("@/page/CustomersAndSuppliers/SuppliersQuery.vue"),
+      },
+      {
         path: "infoQuery",
         name: "infoQuery",
         meta: {
@@ -124,6 +153,7 @@ export const asyncRouterMap = [
       },
     ],
   },
+
   {
     path: "/fundManage",
     name: "fundManage",

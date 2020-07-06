@@ -21,7 +21,13 @@
         </template>-->
       </el-table-column>
       <el-table-column prop="createTime" label="日期" align="center" width="160"></el-table-column>
-      <el-table-column prop="articleType" label="分类" align="center" width="120"></el-table-column>
+      <el-table-column
+        prop="articleType"
+        label="分类"
+        :formatter="formatterId"
+        align="center"
+        width="120"
+      ></el-table-column>
 
       <el-table-column prop="remark" label="备注" align="left">
         <!-- <template slot-scope="scope">
@@ -59,6 +65,22 @@ export default {
       this.$nextTick(() => {
         this.tableHeight = document.body.clientHeight - 280;
       });
+    },
+    formatterId(row, column) {
+      switch (row.articleType) {
+        case "1":
+          return "零件";
+          break;
+        case "2":
+          return "半成品";
+          break;
+        case "3":
+          return "成品";
+          break;
+        case "4":
+          return "其他";
+          break;
+      }
     },
     showTableData(item) {
       switch (item) {

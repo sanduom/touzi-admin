@@ -20,7 +20,13 @@
           <el-tag type="info" close-transition>{{scope.row.payType}}</el-tag>
         </template>-->
       </el-table-column>
-      <el-table-column prop="position" label="入库位置" align="center" width="120"></el-table-column>
+      <el-table-column
+        prop="position"
+        label="入库位置"
+        :formatter="formatterPosition"
+        align="center"
+        width="120"
+      ></el-table-column>
       <el-table-column prop="price" label="单价" align="center" width="120"></el-table-column>
       <el-table-column prop="totalPrice" label="总价" align="center" width="120"></el-table-column>
 
@@ -69,6 +75,16 @@ export default {
       this.$nextTick(() => {
         this.tableHeight = document.body.clientHeight - 280;
       });
+    },
+    formatterPosition(row, column) {
+      switch (row.position) {
+        case "1":
+          return "楼上货架";
+          break;
+        case "2":
+          return "楼下货架";
+          break;
+      }
     },
     showTableData(item) {
       switch (item) {

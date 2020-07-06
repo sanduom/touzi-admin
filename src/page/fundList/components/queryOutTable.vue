@@ -111,16 +111,16 @@ export default {
     },
     formatterId(row, column) {
       switch (row.articleType) {
-        case 1:
+        case "1":
           return "零件";
           break;
-        case 2:
+        case "2":
           return "半成品";
           break;
-        case 3:
+        case "3":
           return "成品";
           break;
-        case 4:
+        case "4":
           return "其他";
           break;
       }
