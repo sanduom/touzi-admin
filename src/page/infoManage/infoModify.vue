@@ -29,6 +29,9 @@
               <el-form-item label="物品信息" prop="goodsInfo">
                 <el-input v-model="infoForm.goodsInfo" size="mini" placeholder="请输入物品信息"></el-input>
               </el-form-item>
+              <el-form-item label="数量单位" prop="goodsUnit">
+                <el-input v-model="infoForm.goodsUnit" size="mini" placeholder="请输入物品数量单位"></el-input>
+              </el-form-item>
               <el-form-item label="物品编号" prop="goodsNo">
                 <el-input v-model="infoForm.goodsNo" size="mini" placeholder="请输入物品编号"></el-input>
               </el-form-item>
@@ -194,7 +197,7 @@ import {
   inputArticle,
   inputEnterArticle,
   inputOutArticle,
-  articleOfSelect
+  articleOfSelect,
 } from "@/api/user";
 
 export default {
@@ -207,7 +210,8 @@ export default {
         goodsType: "",
         goodsInfo: "",
         goodsNo: "",
-        productionImg: ""
+        goodsUnit: "",
+        productionImg: "",
       },
       pwdForm: {
         goodsName: "",
@@ -217,7 +221,7 @@ export default {
         enterTime: "",
         unitPrice: "",
         totalPrice: "",
-        remarks: ""
+        remarks: "",
       },
       phoneForm: {
         goodsName: "",
@@ -228,133 +232,140 @@ export default {
         outUsage: "",
         goodsKind: "",
         unitPrice: "",
-        totalPrice: ""
+        totalPrice: "",
       },
       infoRules: {
         goodsName: [
           {
             required: true,
             message: "请输入物品名称",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
+        ],
+        goodsUnit: [
+          {
+            required: true,
+            message: "请输入物品数量",
+            trigger: "blur",
+          },
         ],
         supplier: [
-          { required: true, message: "请输入供应商", trigger: "blur" }
+          { required: true, message: "请输入供应商", trigger: "blur" },
           // { min: 2, max: 8, message: '长度在 2 到 8 个字符', trigger: 'blur' }
         ],
         goodsType: [
           {
             required: true,
             message: "请选择物品类别",
-            trigger: "change"
-          }
+            trigger: "change",
+          },
         ],
         goodsInfo: [
           {
             required: true,
             message: "请选择物品信息",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         goodsNo: [
           {
             required: true,
             message: "请输入物品编号",
-            trigger: "blur"
-          }
-        ]
+            trigger: "blur",
+          },
+        ],
       },
       pwdRules: {
         goodsName: [
           {
             required: true,
             message: "请输入物品名称",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         goodsQuantity: [
           {
             required: true,
             message: "请输入物品数量",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         operator: [
-          { required: true, message: "请输入经办人", trigger: "blur" }
+          { required: true, message: "请输入经办人", trigger: "blur" },
         ],
         enterPosition: [
           {
             required: true,
             message: "请选择入库位置",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         enterTime: [
           {
             required: true,
             message: "请选择入库时间",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         goodsName: [
           {
             required: true,
             message: "请输入物品名称",
-            trigger: "blur"
-          }
-        ]
+            trigger: "blur",
+          },
+        ],
       },
       phoneRules: {
         goodsName: [
           {
             required: true,
             message: "请输入物品名称",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         goodsQuantity: [
           {
             required: true,
             message: "请输入物品数量",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         operator: [
-          { required: true, message: "请输入经办人", trigger: "blur" }
+          { required: true, message: "请输入经办人", trigger: "blur" },
         ],
         outPosition: [
           {
             required: true,
             message: "请选择出库位置",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         outTime: [
           {
             required: true,
             message: "请选择出库时间",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         outUsage: [
           {
             required: true,
             message: "请选择出库用途",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         goodsKind: [
           {
             required: true,
             message: "请输入物品类别",
-            trigger: "blur"
-          }
-        ]
-      }
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   created() {
-    articleOfSelect().then(res => {
+    articleOfSelect().then((res) => {
       this.articleIdList = res.data;
     });
   },
@@ -365,7 +376,7 @@ export default {
     showMessage(type, message) {
       this.$message({
         type: type,
-        message: message
+        message: message,
       });
     },
     showUsername() {
@@ -373,7 +384,7 @@ export default {
       this.infoForm.username = userinfo.username;
     },
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           if (formName == "pwdForm") {
             let data = {
@@ -385,7 +396,7 @@ export default {
               price: "",
               totalPrice: "",
               createUser: "",
-              createTime: ""
+              createTime: "",
             };
             console.log(this.pwdForm.enterTime);
             data.articleId = this.pwdForm.goodsName + "";
@@ -397,12 +408,12 @@ export default {
             data.totalPrice = this.pwdForm.totalPrice;
             data.remark = this.pwdForm.remarks;
             data.articleType = "1";
-            inputEnterArticle(data).then(res => {
+            inputEnterArticle(data).then((res) => {
               if (res.code == "0000") {
                 this.$refs[formName].resetFields();
                 this.$message({
                   type: "success",
-                  message: "操作成功，商品数量录入完成"
+                  message: "操作成功，商品数量录入完成",
                 });
               }
             });
@@ -413,19 +424,20 @@ export default {
               supplier: "",
               articleType: "",
               articleInfo: "",
-              articleNo: ""
+              articleNo: "",
             };
             data.articleName = this.infoForm.goodsName;
             data.supplier = this.infoForm.supplier;
             data.articleType = this.infoForm.goodsType;
             data.articleInfo = this.infoForm.goodsInfo;
             data.articleNo = this.infoForm.goodsNo;
-            inputArticle(data).then(res => {
+            data.unit = this.infoForm.goodsUnit;
+            inputArticle(data).then((res) => {
               if (res.code == "0000") {
                 this.$refs[formName].resetFields();
                 this.$message({
                   type: "success",
-                  message: "操作成功，商品数量录入完成"
+                  message: "操作成功，商品数量录入完成",
                 });
               }
             });
@@ -440,7 +452,7 @@ export default {
               price: "",
               totalPrice: "",
               createUser: "",
-              createTime: ""
+              createTime: "",
             };
             data.articleId = this.phoneForm.goodsName;
             data.articleCount = this.phoneForm.goodsQuantity;
@@ -451,12 +463,12 @@ export default {
             data.totalPrice = this.phoneForm.totalPrice;
             data.createUser = this.phoneForm.operator;
             data.createTime = this.phoneForm.outTime;
-            inputOutArticle(data).then(res => {
+            inputOutArticle(data).then((res) => {
               if (res.code == "0000") {
                 this.$refs[formName].resetFields();
                 this.$message({
                   type: "success",
-                  message: "操作成功，商品数量录入完成"
+                  message: "操作成功，商品数量录入完成",
                 });
               }
             });
@@ -469,8 +481,8 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
-  }
+    },
+  },
 };
 </script>
 
