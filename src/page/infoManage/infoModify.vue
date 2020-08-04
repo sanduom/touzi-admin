@@ -16,7 +16,15 @@
                 <el-input v-model="infoForm.goodsName" size="mini" placeholder="请输入物品名称"></el-input>
               </el-form-item>
               <el-form-item label="供应商" prop="supplier">
-                <el-input v-model="infoForm.supplier" size="mini" placeholder="请输入供应商"></el-input>
+                <!-- <el-input v-model="infoForm.supplier" size="mini" placeholder="请输入供应商"></el-input> -->
+                <el-select v-model="infoForm.supplier">
+                  <el-option
+                    v-for="item in itemList"
+                    :key="item.id"
+                    :label="item.name"
+                    :value="item.name"
+                  ></el-option>
+                </el-select>
               </el-form-item>
               <el-form-item label="物品类别" prop="goodsType">
                 <el-select v-model="infoForm.goodsType" size="mini" placeholder="请选择物品类别">
@@ -162,6 +170,12 @@
                     <el-option label="其他" value="4"></el-option>
                   </el-select>
                 </el-form-item>
+                <el-form-item label="结算方式" prop="settleType">
+                  <el-select v-model="phoneForm.settleType" size="mini" placeholder="请选择物品类别">
+                    <el-option label="月结" value="1"></el-option>
+                    <el-option label="现金" value="2"></el-option>
+                  </el-select>
+                </el-form-item>
                 <el-form-item label="出库时间" prop="outTime">
                   <el-date-picker
                     format="yyyy-MM-dd HH:mm:ss"
@@ -176,6 +190,15 @@
                 </el-form-item>
                 <el-form-item label="总价" prop="totalPrice">
                   <el-input v-model="phoneForm.totalPrice" size="mini" placeholder="请输入总价"></el-input>
+                </el-form-item>
+                <el-form-item label="备注" prop="remarks">
+                  <el-input
+                    type="textarea"
+                    v-model="phoneForm.remarks"
+                    resize="none"
+                    size="mini"
+                    placeholder="请输入备注"
+                  ></el-input>
                 </el-form-item>
                 <el-form-item>
                   <el-button type="primary" @click="submitForm('phoneForm')">提交</el-button>
@@ -198,6 +221,7 @@ import {
   inputEnterArticle,
   inputOutArticle,
   articleOfSelect,
+  queryCustomerType,
 } from "@/api/user";
 
 export default {
@@ -365,6 +389,15 @@ export default {
     };
   },
   created() {
+    let Type = {
+      customerType: "0", //查询供应商信息的type为0
+      pageNum: "1",
+      pageSize: "10",
+    };
+    queryCustomerType(Type).then((res) => {
+      this.itemList = res.data.list;
+      this.pageTotal = res.data.total;
+    });
     articleOfSelect().then((res) => {
       this.articleIdList = res.data;
     });

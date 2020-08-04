@@ -46,6 +46,14 @@ export function inputCustomerZero(params) {
     data: params,
   });
 }
+//供应商或客户信息查询
+export function queryCustomerType(params) {
+  return request({
+    url: "/query-customer-type",
+    method: "post",
+    data: params,
+  });
+}
 
 //商品名称Id查询
 export function articleOfSelect(params) {

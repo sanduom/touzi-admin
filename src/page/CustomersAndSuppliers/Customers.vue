@@ -21,7 +21,7 @@
               <el-form-item label="地址" prop="address">
                 <el-input v-model="infoForm.address" size="mini" placeholder="请输入地址"></el-input>
               </el-form-item>
-              <el-form-item label="联系人电话" prop="supplierPhoneNumber">
+              <el-form-item label="联系电话" prop="supplierPhoneNumber">
                 <el-input v-model="infoForm.supplierPhoneNumber" size="mini" placeholder="请输入联系人电话"></el-input>
               </el-form-item>
               <el-form-item label="开户银行" prop="OpenBank">
@@ -52,11 +52,11 @@
                 <el-form-item label="联系人" prop="goodsQuantity">
                   <el-input v-model="pwdForm.goodsQuantity" size="mini" placeholder="请输入联系人"></el-input>
                 </el-form-item>
-                <el-form-item label="联系电话" prop="operator">
-                  <el-input v-model="pwdForm.operator" size="mini" placeholder="请输入联系电话"></el-input>
-                </el-form-item>
                 <el-form-item label="地址" prop="enterPosition">
                   <el-input v-model="pwdForm.enterPosition" size="mini" placeholder="请输入地址"></el-input>
+                </el-form-item>
+                <el-form-item label="联系电话" prop="operator">
+                  <el-input v-model="pwdForm.operator" size="mini" placeholder="请输入联系电话"></el-input>
                 </el-form-item>
                 <el-form-item label="开户银行" prop="enterTime">
                   <el-input v-model="pwdForm.enterTime" size="mini" placeholder="请输入开户银行"></el-input>
@@ -83,11 +83,20 @@ import {
   inputCustomerZero,
   inputEnterArticle,
   inputOutArticle,
-  articleOfSelect
+  articleOfSelect,
 } from "@/api/user";
 
 export default {
   data() {
+    var checkphone = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("手机号不能为空"));
+      } else if (!this.isCellPhone(value)) {
+        callback(new Error("请输入正确的手机号!"));
+      } else {
+        callback();
+      }
+    };
     return {
       articleIdList: [],
       infoForm: {
@@ -95,7 +104,7 @@ export default {
         supplier: "",
         address: "",
         supplierPhoneNumber: "",
-        OpenBank: ""
+        OpenBank: "",
       },
       pwdForm: {
         goodsName: "",
@@ -105,7 +114,7 @@ export default {
         enterTime: "",
         unitPrice: "",
         totalPrice: "",
-        remarks: ""
+        remarks: "",
       },
       phoneForm: {
         goodsName: "",
@@ -116,72 +125,70 @@ export default {
         outUsage: "",
         goodsKind: "",
         unitPrice: "",
-        totalPrice: ""
+        totalPrice: "",
       },
       infoRules: {
         goodsName: [
           {
             required: true,
             message: "请输入物品名称",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         supplier: [
-          { required: true, message: "请输入供应商", trigger: "blur" }
+          { required: true, message: "请输入供应商", trigger: "blur" },
           // { min: 2, max: 8, message: '长度在 2 到 8 个字符', trigger: 'blur' }
         ],
         supplierPhoneNumber: [
-          { required: true, message: "请输入联系人电话", trigger: "blur" }
+          { required: true, validator: checkphone, trigger: "blur" },
         ],
         address: [{ required: true, message: "请输入地址", trigger: "blur" }],
         OpenBank: [
-          { required: true, message: "请输入开户银行", trigger: "blur" }
-        ]
+          { required: true, message: "请输入开户银行", trigger: "blur" },
+        ],
       },
       pwdRules: {
         goodsName: [
           {
             required: true,
             message: "请输入客户名称",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         goodsQuantity: [
           {
             required: true,
             message: "请输入联系人",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
-        operator: [
-          { required: true, message: "请输入联系电话", trigger: "blur" }
-        ],
+        operator: [{ required: true, validator: checkphone, trigger: "blur" }],
         enterPosition: [
           {
             required: true,
             message: "请输入地址",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         enterTime: [
           {
             required: true,
             message: "请输入开户银行",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         goodsName: [
           {
             required: true,
             message: "请输入物品名称",
-            trigger: "blur"
-          }
-        ]
-      }
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   created() {
-    articleOfSelect().then(res => {
+    articleOfSelect().then((res) => {
       this.articleIdList = res.data;
     });
   },
@@ -189,10 +196,18 @@ export default {
     // mutils.setContentHeight(this,this.$refs.fillcontain,170);
   },
   methods: {
+    //检查手机号
+    isCellPhone(val) {
+      if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test(val)) {
+        return false;
+      } else {
+        return true;
+      }
+    },
     showMessage(type, message) {
       this.$message({
         type: type,
-        message: message
+        message: message,
       });
     },
     showUsername() {
@@ -200,7 +215,7 @@ export default {
       this.infoForm.username = userinfo.username;
     },
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           if (formName == "pwdForm") {
             let data = {
@@ -209,19 +224,19 @@ export default {
               customerType: "1",
               phone: "",
               contacts: "",
-              address: ""
+              address: "",
             };
             data.name = this.pwdForm.goodsName + "";
             data.contacts = this.pwdForm.goodsQuantity;
             data.phone = this.pwdForm.operator;
             data.address = this.pwdForm.enterPosition;
             data.cardBank = this.pwdForm.enterTime;
-            inputCustomerZero(data).then(res => {
+            inputCustomerZero(data).then((res) => {
               if (res.code == "0000") {
                 this.$refs[formName].resetFields();
                 this.$message({
                   type: "success",
-                  message: "操作成功，商品数量录入完成"
+                  message: "操作成功，客户信息录入完成",
                 });
               }
             });
@@ -233,19 +248,19 @@ export default {
               customerType: "0",
               phone: "",
               contacts: "",
-              address: ""
+              address: "",
             };
             data.name = this.infoForm.goodsName;
             data.contacts = this.infoForm.supplier;
             data.address = this.infoForm.address;
             data.phone = this.infoForm.supplierPhoneNumber;
             data.cardBank = this.infoForm.OpenBank;
-            inputCustomerOne(data).then(res => {
+            inputCustomerOne(data).then((res) => {
               if (res.code == "0000") {
                 this.$refs[formName].resetFields();
                 this.$message({
                   type: "success",
-                  message: "操作成功，商品数量录入完成"
+                  message: "操作成功，供应商信息录入完成",
                 });
               }
             });
@@ -260,7 +275,7 @@ export default {
               price: "",
               totalPrice: "",
               createUser: "",
-              createTime: ""
+              createTime: "",
             };
             data.articleId = this.phoneForm.goodsName;
             data.articleCount = this.phoneForm.goodsQuantity;
@@ -271,12 +286,12 @@ export default {
             data.totalPrice = this.phoneForm.totalPrice;
             data.createUser = this.phoneForm.operator;
             data.createTime = this.phoneForm.outTime;
-            inputOutArticle(data).then(res => {
+            inputOutArticle(data).then((res) => {
               if (res.code == "0000") {
                 this.$refs[formName].resetFields();
                 this.$message({
                   type: "success",
-                  message: "操作成功，商品数量录入完成"
+                  message: "操作成功，客户信息录入完成",
                 });
               }
             });
@@ -289,8 +304,8 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
-  }
+    },
+  },
 };
 </script>
 

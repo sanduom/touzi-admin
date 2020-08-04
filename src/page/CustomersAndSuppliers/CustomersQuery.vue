@@ -13,7 +13,6 @@
               :value="item.value"
             ></el-option>
           </el-select>
-          <!-- <el-input v-model="productName" placeholder="请输入商品名称" style="width:60%;margin-left:10px" label="商品名称" size="small"></el-input> -->
         </div>
         <div style="float:right;width:30%;margin-top:20px">
           商品分类:
@@ -61,28 +60,19 @@
       </el-tabs>
 
       <pagination :pageTotal="pageTotal" @handleCurrentChange="handleCurrentChange"></pagination>
-      <!-- <div class="pagination">
-        <el-pagination
-          v-if="pageTotal > 0"
-          background
-          :page-sizes="paginations.pageSizes"
-          :page-size="paginations.pageSize"
-          :layout="paginations.layout"
-          :total="pageTotal"
-          :current-page="paginations.pageIndex"
-          @current-change="handleCurrentChange"
-          @size-change="handleSizeChange"
-        ></el-pagination>
-      </div>-->
     </div>
   </div>
 </template>
 
 <script>
-// import chinaTabsTable from '/components/chinaTabsTable'
-import chinaTabsTable from "../fundList/components/chinaTabsTable";
-// import data from './data/chinaTabs.json';
-import { articleOfSelect, queryEnter, queryStock } from "@/api/user";
+// import chinaTabsTable from "../fundList/components/chinaTabsTable";
+import chinaTabsTable from "../fundList/components/queryCustomerTypeOne";
+import {
+  articleOfSelect,
+  queryEnter,
+  queryStock,
+  queryCustomerType,
+} from "@/api/user";
 import data from "../fundList/data/chinaTabs.json";
 import Pagination from "@/components/pagination";
 
@@ -102,44 +92,53 @@ export default {
         pageIndex: 1, // 当前位于哪页
         pageSize: 10, // 1页显示多少条
         pageSizes: [5, 10, 15, 20], //每页显示多少条
-        layout: "total, prev, pager, next, jumper" // 翻页属性
+        layout: "total, prev, pager, next, jumper", // 翻页属性
       },
       options: [
         {
           value: "1",
-          label: "零件"
+          label: "零件",
         },
         {
           value: "2",
-          label: "半成品"
+          label: "半成品",
         },
         {
           value: "3",
-          label: "成品"
-        }
-      ]
+          label: "成品",
+        },
+      ],
     };
   },
   components: {
     chinaTabsTable,
-    Pagination
+    Pagination,
   },
   created() {
-    articleOfSelect().then(res => {
-      this.articleList = res.data;
-    });
-    let data = {
-      // articleName: this.productName,
-      // articleType: this.value,
-      // currentDate: this.QuerydDate,
+    let Type = {
+      customerType: "1", //查询供应商信息的type为0
       pageNum: "1",
-      pageSize: "10"
+      pageSize: "10",
     };
-    queryStock(data).then(res => {
-      console.log(res);
+    queryCustomerType(Type).then((res) => {
       this.tableDataQuery = res.data.list;
       this.pageTotal = res.data.total;
     });
+    articleOfSelect().then((res) => {
+      this.articleList = res.data;
+    });
+    // let data = {
+    //   // articleName: this.productName,
+    //   // articleType: this.value,
+    //   // currentDate: this.QuerydDate,
+    //   pageNum: "1",
+    //   pageSize: "10",
+    // };
+    // queryStock(data).then((res) => {
+    //   console.log(res);
+    //   this.tableDataQuery = res.data.list;
+    //   this.pageTotal = res.data.total;
+    // });
   },
   mounted() {
     //  this.setTabHeight();
@@ -167,9 +166,9 @@ export default {
         articleType: this.value,
         currentDate: this.QuerydDate,
         pageNum: page + "",
-        pageSize: "10"
+        pageSize: "10",
       };
-      queryStock(data).then(res => {
+      queryStock(data).then((res) => {
         console.log(res);
         this.tableDataQuery = res.data.list;
         this.pageTotal = res.data.total;
@@ -181,9 +180,9 @@ export default {
         articleType: this.value,
         currentDate: this.QuerydDate,
         pageNum: "1",
-        pageSize: "10"
+        pageSize: "10",
       };
-      queryStock(data).then(res => {
+      queryStock(data).then((res) => {
         console.log(res);
         this.tableDataQuery = res.data.list;
         this.pageTotal = res.data.total;
@@ -205,8 +204,8 @@ export default {
     },
     toggleTabs(item) {
       this.toggleData = item;
-    }
-  }
+    },
+  },
 };
 </script>
 
