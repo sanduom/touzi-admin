@@ -22,7 +22,7 @@
                     v-for="item in itemList"
                     :key="item.id"
                     :label="item.name"
-                    :value="item.name"
+                    :value="item.id"
                   ></el-option>
                 </el-select>
               </el-form-item>

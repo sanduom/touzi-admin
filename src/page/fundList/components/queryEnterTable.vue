@@ -1,7 +1,7 @@
 <template>
   <div class="chinaTabsTable">
     <el-table :data="tableDataQuery" style="width: 100%" align="center">
-      <el-table-column prop="ID" label="序号" align="center" width="80">
+      <el-table-column prop="ID" label="序号" align="center" width="60">
         <template slot-scope="scope">{{scope.$index+1}}</template>
       </el-table-column>
       <el-table-column prop="articleName" label="商品名称" align="center" width="140"></el-table-column>
@@ -32,7 +32,7 @@
 
       <el-table-column prop="remark" label="备注" align="left">
         <template slot-scope="scope">
-          <span style="color:#3366CC">{{scope.row.remarks}}</span>
+          <span style="color:#3366CC">{{scope.row.remark}}</span>
         </template>
       </el-table-column>
     </el-table>
@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       tableData: [],
-      tableHeight: 0
+      tableHeight: 0,
     };
   },
   created() {
@@ -62,7 +62,7 @@ export default {
   },
   props: {
     toggleData: [String],
-    tableDataQuery: [Array]
+    tableDataQuery: [Array],
   },
   mounted() {
     this.setTableHeight();
@@ -113,14 +113,14 @@ export default {
           this.tableData = data.china.specialareaChina;
           break;
       }
-    }
+    },
   },
   watch: {
     // 监听属性的变化，可以接收参数;
     toggleData(v) {
       this.showTableData(v);
-    }
-  }
+    },
+  },
 };
 </script>
 
