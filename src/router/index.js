@@ -5,7 +5,7 @@ import { topRouterMap } from "./topRouter";
 
 process.env.NODE_ENV === "development" ? Vue.use(Router) : null;
 
-function filterTopRouterMap(name) {
+function filterTopRouterMap (name) {
   let router = topRouterMap.find((item) => {
     return item.parentName === name;
   });
@@ -69,7 +69,7 @@ export const constantRouterMap = [
 //注册路由
 export default new Router({
   mode: "history", // 默认为'hash'模式
-  base: "/permission/", // 添加跟目录,对应服务器部署子目录
+  base: "/stroe/", // 添加跟目录,对应服务器部署子目录
   routes: constantRouterMap,
 });
 

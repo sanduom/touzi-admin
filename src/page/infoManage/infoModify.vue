@@ -486,6 +486,7 @@ export default {
               totalPrice: "",
               createUser: "",
               createTime: "",
+              settleType: "",
             };
             data.articleId = this.phoneForm.goodsName;
             data.articleCount = this.phoneForm.goodsQuantity;
@@ -496,6 +497,7 @@ export default {
             data.totalPrice = this.phoneForm.totalPrice;
             data.createUser = this.phoneForm.operator;
             data.createTime = this.phoneForm.outTime;
+            data.settleType = this.phoneForm.settleType;
             inputOutArticle(data).then((res) => {
               if (res.code == "0000") {
                 this.$refs[formName].resetFields();
